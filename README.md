@@ -163,7 +163,7 @@ Then open `http://localhost:5000` in your browser.
 
 A live inference demo is available on HuggingFace Spaces:
 
-👉 **[Try it here](https://huggingface.co/spaces/your-username/brain-tumor-mri-classifier)**
+👉 **[Try it here](https://huggingface.co/spaces/AhmedTarek1/BTC)**
 
 ---
 
