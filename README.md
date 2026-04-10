@@ -22,6 +22,27 @@ A PyTorch deep learning pipeline for classifying brain MRI scans into 4 categori
 
 ---
 
+## 🧪 Experiments & Comparison
+
+Four experiments were run progressively, each building on the previous:
+
+| # | Model | Loss | Epochs | Test Acc | Glioma Recall | Glioma F1 | Key Change |
+|---|---|---|---|---|---|---|---|
+| 1 | ResNet-50 | CrossEntropy | 30 | ~95.0% | 84.2% | ~89% | Baseline |
+| 2 | EfficientNet-B3 | CrossEntropy | 30 | ~95.0% | 84.2% | ~89% | Backbone swap, 300×300 input |
+| 3 | EfficientNet-B3 | Focal Loss (γ=2.0) | 40 | 95.0% | 83.3% | 90.7% | Focal loss + lower LR |
+| 4 | EfficientNet-B3 + Optuna | Focal Loss (γ=best) | 40 | **95.0%** | 83.3% | **90.7%** | Tuned LR, dropout, gamma |
+
+### Key findings
+
+- **ResNet-50 → EfficientNet-B3:** Switching backbones gave comparable overall accuracy with fewer parameters (~12M vs ~25M), faster inference, and a more compact model suitable for deployment.
+- **CrossEntropy → Focal Loss:** Directly targeted the glioma problem by down-weighting easy classes (No Tumor, Pituitary) during training. Glioma F1 improved and precision jumped to 99.7%, though recall remained the bottleneck at 83.3%.
+- **Glioma remains the hardest class** across all experiments due to its diffuse, irregular appearance on MRI — visually similar to meningioma and can present without a clearly defined boundary, consistent with the clinical literature.
+- **No Tumor and Pituitary** hit 100% recall in all experiments — these classes are visually distinct and the model learned them quickly even in the warm-up phase.
+- **Optuna tuning** stabilized training and reduced overfitting on the easy classes, contributing to better generalization rather than a raw accuracy jump.
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -42,7 +63,7 @@ brain-tumor-classifier/
 ### 1. Clone & install
 
 ```bash
-git clone https://github.com/Ahmed-Tarek1/Brain-Tumor-MRI-Classification.git
+git clone https://github.com/your-username/brain-tumor-classifier.git
 cd brain-tumor-classifier
 pip install -r requirements.txt
 ```
@@ -141,7 +162,7 @@ Then open `http://localhost:5000` in your browser.
 
 A live inference demo is available on HuggingFace Spaces:
 
-👉 **[Try it here](https://huggingface.co/spaces/AhmedTarek1/BTC)**
+👉 **[Try it here](https://huggingface.co/spaces/your-username/brain-tumor-mri-classifier)**
 
 ---
 
