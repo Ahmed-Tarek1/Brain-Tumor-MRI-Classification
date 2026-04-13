@@ -28,11 +28,13 @@ Four experiments were run progressively, each building on the previous:
 
 | # | Model | Loss | Epochs | Test Acc | Glioma Recall | Glioma F1 | Key Change |
 |---|---|---|---|---|---|---|---|
-| 1 | ResNet-50 | CrossEntropy | 30 | ~95.0% | 84.2% | ~89% | Baseline |
-| 2 | EfficientNet-B3 | CrossEntropy | 30 | ~95.0% | 84.2% | ~89% | Backbone swap, 300×300 input |
-| 3 | EfficientNet-B3 | Focal Loss (γ=2.0) | 40 | 95.0% | 83.3% | 90.7% | Focal loss + lower LR |
+| 1 | ResNet-50 | CrossEntropy | 30 | ~95.0% | 84.2% | **~89%** | Baseline |
+| 2 | EfficientNet-B3 | CrossEntropy | 30 | ~95.0% | 84.2% | **~89%** | Backbone swap, 300×300 input |
+| 3 | EfficientNet-B3 | Focal Loss (γ=2.0) | 40 | 95.0% | 83.3% | **90.7%** | Focal loss + lower LR |
 | 4 | EfficientNet-B3 + Optuna | Focal Loss (γ=best) | 40 | **95.0%** | 83.3% | **90.7%** | Tuned LR, dropout, gamma |
 | 5 | EfficientNet-B7 | Focal Loss (γ=best) | 40 | **95.75%** | **89.3%** | **93.5%** | Larger backbone |
+| 6 | EfficientNet-B3 Baseline | CrossEntropy | 20 | *96.00%* (ep 15) | 0.84 | **0.91%** |  flip aug + rotation aug, no scheduler |
+| 7 | EfficientNet-B3 Medical-Safe | CrossEntropy | 25 | *96.69%* (ep 25)  | *83.8%* | **93%** | notumor threshold = 0.95, weight_decay, CosineAnnealingLR
 
 ### Key findings
 
