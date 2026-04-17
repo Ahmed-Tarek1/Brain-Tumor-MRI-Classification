@@ -32,9 +32,14 @@ Four experiments were run progressively, each building on the previous:
 | 2 | EfficientNet-B3 | CrossEntropy | 30 | ~95.0% | 84.2% | **~89%** | Backbone swap, 300×300 input |
 | 3 | EfficientNet-B3 | Focal Loss (γ=2.0) | 40 | 95.0% | 83.3% | **90.7%** | Focal loss + lower LR |
 | 4 | EfficientNet-B3 + Optuna | Focal Loss (γ=best) | 40 | **95.0%** | 83.3% | **90.7%** | Tuned LR, dropout, gamma |
-| 5 | EfficientNet-B7 | Focal Loss (γ=best) | 40 | **95.75%** | **89.3%** | **93.5%** | Larger backbone |
+| 5 | EfficientNet-B7 | Focal Loss (γ=best) | 40 | 95.75% | **89.3%** | **93.5%** | Larger backbone |
 | 6 | EfficientNet-B3 Baseline | CrossEntropy | 20 | *96.00%* (ep 15) | 0.84 | **0.91%** |  flip aug + rotation aug, no scheduler |
 | 7 | EfficientNet-B3 Medical-Safe | CrossEntropy | 25 | *96.69%* (ep 25)  | *83.8%* | **93%** | notumor threshold = 0.95, weight_decay, CosineAnnealingLR
+| 8 | DenseNet-121 Baseline | CrossEntropy | 25 | 86.56% | 77.0% | **83%** | Original model.py (head-only warm-up) |
+| 9 | DenseNet-121 + Deeper Head | CrossEntropy (smooth=0.1) | 10 + 35 | 92.4% | 82.3% | **87.2%** | Deeper head, denseblock3 unfrozen, AdamW, RandomErasing |
+| 10 | DenseNet-121 + Deeper Head + TTA (n=5) | CrossEntropy (smooth=0.1) | 10 + 35 | *93.2%* | *83.0%* | **88.9%** | Test-Time Augmentation added on top of #2 |
+| 11 | DenseNet-121 Model 2 (3-class) | CrossEntropy (smooth=0.1) | 15 + 35 | 93.0% (94.0% TTA) | 86.3% (87.5% TTA) | **91.1%** (92.3% TTA) | Stage 2: classifies tumor type among tumor images |
+| 12 | Pipeline (Model 1 + Model 2) | — | — | *93.0%* (1488/1600) | *85.0%* | **89.9%** | Combined two-stage pipeline, 73.3% routed to Model 2 |
 
 ### Key findings
 
